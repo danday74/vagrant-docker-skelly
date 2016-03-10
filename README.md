@@ -1,6 +1,6 @@
 # vagrant-docker-skelly
 
-The [Vagrantfile](https://www.vagrantup.com) spins up an Ubuntu box with [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/) installed.
+The [Vagrantfile](https://www.vagrantup.com) spins up an Ubuntu box with [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose) installed.
 
 A few docker images are pulled during provisioning for demo purposes via an external script.
 
