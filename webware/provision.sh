@@ -45,9 +45,9 @@ rm -rf ${deploymentDir}/volume-umfe-apache-logs;
 
 if [[ ! -d ${deploymentDir}/volume-certs ]]; then
   echo "##### pulling certs #####";
-  docker pull 10.20.2.139:5000/cr-certs:${certsTag};
+  docker pull dandocker777/cr-certs:${certsTag};
   echo "##### running certs #####";
-  docker run --name certs -e SUBJECT_ALT_NAME="DNS.1:localhost,DNS.2:api,DNS.3:cr-user-management" -e PARENT_PASSWORD="parent777" -e CHILD_PASSWORD="child777" -e KEYSTORE_PASSWORD="keystore777" -v ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal 10.20.2.139:5000/cr-certs:${certsTag};
+  docker run --name certs -e SUBJECT_ALT_NAME="DNS.1:localhost,DNS.2:api,DNS.3:cr-user-management" -e PARENT_PASSWORD="parent777" -e CHILD_PASSWORD="child777" -e KEYSTORE_PASSWORD="keystore777" -v ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal dandocker777/cr-certs:${certsTag};
 else
   echo "##### using existing certs #####";
 fi
@@ -59,9 +59,9 @@ echo "##### running containers #####";
 
 # Fergal's docs
 echo "##### pulling Fergal #####";
-docker pull 10.20.2.139:5000/dita-documentation:latest;
+docker pull dandocker777/dita-documentation:latest;
 echo "##### running Fergal #####";
-docker run -d --name dita -p 8080:80 10.20.2.139:5000/dita-documentation:latest;
+docker run -d --name dita -p 8080:80 dandocker777/dita-documentation:latest;
 
 # Logs
 echo "##### compose logs #####" && docker-compose logs;

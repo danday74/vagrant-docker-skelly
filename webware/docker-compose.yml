@@ -1,17 +1,17 @@
 ldap:
-  image: 10.20.2.139:5000/openldap:latest
+  image: dandocker777/openldap:latest
   container_name: "ldap"
   ports:
     - 389:389
 
 database:
-  image: 10.20.2.139:5000/cr-database:${databaseTag}
+  image: dandocker777/cr-database:${databaseTag}
   container_name: "database"
   ports:
     - 5432:5432
 
 api:
-  image: 10.20.2.139:5000/investigation-api:${apiTag}
+  image: dandocker777/investigation-api:${apiTag}
   container_name: "api"
   links:
     - "database"
@@ -33,7 +33,7 @@ api:
     - ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal
 
 umbe:
-  image: 10.20.2.139:5000/user-management-backend:${umbeTag}
+  image: dandocker777/user-management-backend:${umbeTag}
   container_name: "umbe"
   links:
     - "api"
@@ -53,7 +53,7 @@ umbe:
     - ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal
 
 umfe:
-  image: 10.20.2.139:5000/user-management-frontend:${umfeTag}
+  image: dandocker777/user-management-frontend:${umfeTag}
   container_name: "umfe"
   links:
     - "umbe"
