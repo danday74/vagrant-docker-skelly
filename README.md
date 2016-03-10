@@ -6,6 +6,8 @@ A few docker images are pulled during provisioning for demo purposes via an [ext
 
 The images are pulled from the public docker registry and an insecure docker registry.
 
+This demonstrates use of an insecure docker registry.
+
 ## NOTES
 
 * The Vagrant plugin vagrant-proxyconf sets the proxy for docker by updating */etc/default/docker* automatically based on Windows http_proxy environment variables.
