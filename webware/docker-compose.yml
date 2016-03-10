@@ -1,0 +1,81 @@
+ldap:
+  image: 10.20.2.139:5000/openldap:latest
+  container_name: "ldap"
+  ports:
+    - 389:389
+
+database:
+  image: 10.20.2.139:5000/cr-database:${databaseTag}
+  container_name: "database"
+  ports:
+    - 5432:5432
+
+api:
+  image: 10.20.2.139:5000/investigation-api:${apiTag}
+  container_name: "api"
+  links:
+    - "database"
+    - "ldap"
+  ports:
+    - 8843:8843
+  environment:
+    DB_HOST: "database"
+    DB_PORT: 5432
+    DB_NAME: "cyberreveal"
+    LDAP_LOGON_ATTRIBUTE: "uid"
+    LDAP_URL: "ldap://ldap:389"
+    LDAP_MANAGER_DN: "cn=admin,dc=openstack,dc=org"
+    LDAP_MANAGER_PWORD: "password"
+    LDAP_BASE+DN: "ou=Users,dc=openstack,dc=org"
+    KEYSTORE_PASSWORD: "keystore777"
+    KEYSTORE: "/etc/ssl/certs/cyberreveal/keystore.jks"
+  volumes:
+    - ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal
+
+umbe:
+  image: 10.20.2.139:5000/user-management-backend:${umbeTag}
+  container_name: "umbe"
+  links:
+    - "api"
+  ports:
+    - 9100:9100
+  environment:
+    API_HOST: "api"
+    API_PORT: 8843
+    LOG_LEVEL: "debug"
+    NODE_PROTOCOL: "https"
+    PARENT_CERT: "/etc/ssl/certs/cyberreveal/parent.crt"
+    CHILD_CERT: "/etc/ssl/certs/cyberreveal/child.crt"
+    CHILD_KEY: "/etc/ssl/certs/cyberreveal/child.key"
+    CHILD_PASS: "child777"
+    KEYSTORE: "/etc/ssl/certs/cyberreveal/certificate.p12"
+  volumes:
+    - ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal
+
+umfe:
+  image: 10.20.2.139:5000/user-management-frontend:${umfeTag}
+  container_name: "umfe"
+  links:
+    - "umbe"
+  ports:
+    - 80:80
+    - 443:443
+    - ${httpsActualPortAdmin}:${httpsActualPortAdmin}
+  environment:
+    SERVER_NAME: ${serverName}
+    HTTPS_ACTUAL_PORT_ADMIN: ${httpsActualPortAdmin}
+    HTTPS_FORWARD_PORT_INVESTIGATOR: ${httpsForwardPortInvestigator}
+    HTTPS_FORWARD_PORT_ADMIN: ${httpsForwardPortAdmin}
+    NODE_HOST: "umbe"
+    NODE_PORT: 9100
+    PARENT_CERT: "/etc/ssl/certs/cyberreveal/parent.crt"
+    CHILD_CERT: "/etc/ssl/certs/cyberreveal/child.crt"
+    CHILD_KEY: "/etc/ssl/certs/cyberreveal/child.key"
+    KEYSTORE: "/etc/ssl/certs/cyberreveal/certificate.p12"
+    SSLPassPhraseDialog: "/etc/ssl/certs/cyberreveal/SSLPassPhraseDialog.sh"
+  volumes:
+    - ${deploymentDir}/volume-umfe-apache-conf:/etc/httpd/conf.d # dev only
+    - ${deploymentDir}/volume-umfe-apache-logs:/var/log/httpd # dev only
+    - ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal
+  # volumes_from:
+  #   - certs:rw
