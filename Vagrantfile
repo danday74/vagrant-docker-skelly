@@ -19,7 +19,7 @@ end
 $provision = <<PROVISION
   # sudo apt-get install -y curl;
   # curl -s -L https://get.docker.com/ | sudo bash;
-  sudo gpasswd -a vagrant docker;
+  sudo gpasswd -a vagrant docker; # sudo usermod -aG docker vagrant;
   sudo sed -i '/DOCKER_OPTS=/c\DOCKER_OPTS="$DOCKER_OPTS --insecure-registry=10.20.2.139:5000"' /etc/default/docker;
   sudo service docker restart;
   dockerComposeVersion='1.6.2';
