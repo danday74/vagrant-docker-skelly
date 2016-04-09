@@ -6,7 +6,6 @@ echo "ldapTag:${ldapTag}";
 echo "databaseTag:${databaseTag}";
 echo "apiTag:${apiTag}";
 
-
 imageName="openldap";
 src="${srcRepo}/${imageName}:${ldapTag}";
 dest="${destRepo}/${imageName}:${ldapTag}";
