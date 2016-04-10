@@ -51,7 +51,7 @@ if [[ ! -d ${deploymentDir}/volume-certs ]]; then
   echo "##### pulling certs #####";
   docker pull dandocker777/cr-certs:${certsTag};
   echo "##### running certs #####";
-  docker run --name certs -e SUBJECT_ALT_NAME="DNS.1:localhost,DNS.2:api,DNS.3:daniellewis777" -e PARENT_PASSWORD="parent777" -e CHILD_PASSWORD="child777" -e KEYSTORE_PASSWORD="keystore777" -v ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal dandocker777/cr-certs:${certsTag};
+  docker run --name certs -e SUBJECT_ALT_NAME="DNS.1:localhost,DNS.2:api,DNS.3:daniellewis777.com,DNS.4:www.daniellewis777.com" -e PARENT_PASSWORD="parent777" -e CHILD_PASSWORD="child777" -e KEYSTORE_PASSWORD="keystore777" -v ${deploymentDir}/volume-certs:/etc/ssl/certs/cyberreveal dandocker777/cr-certs:${certsTag};
 else
   echo "##### using existing certs #####";
 fi
