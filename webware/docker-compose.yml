@@ -19,6 +19,7 @@ api:
   ports:
     - 8843:8843
   environment:
+    JWT_SECRET_KEY: "Q0hBTkdFIE1FIFBMRUFTRQ=="
     DB_HOST: "database"
     DB_PORT: 5432
     DB_NAME: "cyberreveal"
