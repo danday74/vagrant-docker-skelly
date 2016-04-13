@@ -32,9 +32,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = "dandocker"
   config.vm.network :forwarded_port, host: 9010, guest: 80
-  config.vm.network :forwarded_port, host: 9100, guest: 9100
-  config.vm.network :forwarded_port, host: 8843, guest: 8843
-  config.vm.network :forwarded_port, host: 5432, guest: 5432
+  # config.vm.network :forwarded_port, host: 9100, guest: 9100
+  # config.vm.network :forwarded_port, host: 8843, guest: 8843
+  # config.vm.network :forwarded_port, host: 5432, guest: 5432
   config.proxy.http     = ENV['HTTP_PROXY']
   config.proxy.https    = ENV['HTTPS_PROXY']
   config.proxy.no_proxy = ENV['NO_PROXY']
