@@ -17,24 +17,20 @@ unless Vagrant.has_plugin?("vagrant-proxyconf")
 end
 
 $provision = <<PROVISION
-  # sudo apt-get install -y curl;
-  # curl -s -L https://get.docker.com/ | sudo bash;
   sudo gpasswd -a vagrant docker; # sudo usermod -aG docker vagrant;
-  sudo sed -i '/DOCKER_OPTS=/c\DOCKER_OPTS="$DOCKER_OPTS --insecure-registry=10.20.2.139:5000"' /etc/default/docker;
-  sudo service docker restart;
-  dockerComposeVersion='1.6.2';
+  dockerComposeVersion='1.11.1';
   which docker-compose &>/dev/null || ( echo "Installing Docker Compose ${dockerComposeVersion} onto machine..." && sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/${dockerComposeVersion}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose' &>/dev/null && sudo chmod +x /usr/local/bin/docker-compose );
   grep -q -F 'cd /vagrant' /home/vagrant/.bashrc || echo 'cd /vagrant' >> /home/vagrant/.bashrc;
   echo 'provisioning complete';
 PROVISION
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  # config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/xenial64"
   config.vm.hostname = "dandocker"
-  config.vm.network :forwarded_port, host: 9010, guest: 80
-  # config.vm.network :forwarded_port, host: 9100, guest: 9100
-  # config.vm.network :forwarded_port, host: 8843, guest: 8843
-  # config.vm.network :forwarded_port, host: 5432, guest: 5432
+  for i in 9900..9920
+    config.vm.network :forwarded_port, guest: i, host: i
+  end  
   config.proxy.http     = ENV['HTTP_PROXY']
   config.proxy.https    = ENV['HTTPS_PROXY']
   config.proxy.no_proxy = ENV['NO_PROXY']
