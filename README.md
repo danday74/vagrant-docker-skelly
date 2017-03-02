@@ -20,3 +20,5 @@ vagrant ssh
 docker -v
 docker-compose -v
 ```
+
+The [Vagrantfile](Vagrantfile) defines which ports are exposed, which folders are shared, etc.
