@@ -9,3 +9,14 @@ The images are pulled from the public docker registry.
 ## NOTES
 
 The Vagrant plugin vagrant-proxyconf sets the proxy for docker by updating */etc/default/docker* automatically based on Windows http_proxy environment variables.
+
+## GO GO GO
+
+```docker
+git clone https://github.com/danday74/vagrant-docker-skelly
+cd vagrant-docker-skelly
+vagrant up # takes approx 5 mins to create VM
+vagrant ssh
+docker -v
+docker-compose -v
+```
