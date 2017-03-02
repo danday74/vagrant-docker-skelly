@@ -13,7 +13,7 @@ The Vagrant plugin vagrant-proxyconf sets the proxy for docker by updating */etc
 ## GO GO GO
 
 ```docker
-git clone https://github.com/danday74/vagrant-docker-skelly
+git clone git@github.com:danday74/vagrant-docker-skelly.git
 cd vagrant-docker-skelly
 vagrant up # takes approx 5 mins to create VM
 vagrant ssh
