@@ -24,7 +24,6 @@ $provision = <<PROVISION
 PROVISION
 
 Vagrant.configure("2") do |config|
-  # config.vm.box = "ubuntu/trusty64"
   config.vm.box = "ubuntu/xenial64"
   config.vm.hostname = "dandocker"
   for i in 9900..9920
