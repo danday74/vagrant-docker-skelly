@@ -1,4 +1,4 @@
-# vagrant-docker-skelly
+# vagrant-docker-skelly-insecure
 
 The [Vagrantfile](https://www.vagrantup.com) spins up an Ubuntu box with [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose) installed.
 
