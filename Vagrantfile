@@ -29,6 +29,9 @@ Vagrant.configure("2") do |config|
   for i in 9900..9920
     config.vm.network :forwarded_port, guest: i, host: i
   end
+  for j in [51108, 51109, 52922, 52923, 54101, 54102, 53192, 53193]
+    config.vm.network :forwarded_port, guest: j, host: j
+  end
   config.vm.synced_folder "shared/", "/home/ubuntu/shared"
   config.proxy.http     = ENV['HTTP_PROXY']
   config.proxy.https    = ENV['HTTPS_PROXY']
