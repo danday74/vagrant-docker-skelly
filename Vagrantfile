@@ -17,7 +17,7 @@ unless Vagrant.has_plugin?("vagrant-proxyconf")
 end
 
 $provision = <<PROVISION
-  dockerComposeVersion='1.11.1';
+  dockerComposeVersion='1.11.2';
   which docker-compose &>/dev/null || ( echo "Installing Docker Compose ${dockerComposeVersion} onto machine..." && sudo curl -L "https://github.com/docker/compose/releases/download/${dockerComposeVersion}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &>/dev/null && sudo chmod +x /usr/local/bin/docker-compose );
   grep -q -F 'cd /home/ubuntu/shared' /home/ubuntu/.bashrc || echo 'cd /home/ubuntu/shared' >> /home/ubuntu/.bashrc;
   echo 'provisioning complete';
